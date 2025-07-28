@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+<style>
+    body {
+        background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    .container {
+        background-color: white;
+        border-radius: 25px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .text-center {
+        color: #0061F2;
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+    
+    .form-label {
+        color: #0066fd;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+    
+    .form-control {
+        border-radius: 10px;
+        padding: 8px 12px;
+        margin-bottom: 15px;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        cursor: not-allowed;
+        color: black !important;
+    }
+    
+    .btn-primary {
+        background-color: #0061F2;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 24px;
+        font-weight: 500;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="text-center text-primary mb-4">View the Quiz</h3>
+            
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Name:</label>
+                        <input type="text" class="form-control" value="{{ quiz.name }}" readonly>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Subject:</label>
+                        <input type="text" class="form-control" value="{{ subject.name }}" readonly>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Chapter:</label>
+                        <input type="text" class="form-control" value="{{ chapter.name }}" readonly>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Number of Questions:</label>
+                        <input type="text" class="form-control" value="{{ quiz.no_of_question }}" readonly>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Scheduled Date:</label>
+                        <input type="text" class="form-control" value="{{ quiz.date.strftime('%d/%m/%Y') }}" readonly>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Duration(in minutes):</label>
+                        <input type="text" class="form-control" value="{{ quiz.time }}" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-primary">Remarks</label>
+                        <input type="text" class="form-control" value="{{ quiz.remark }}" readonly>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="{{ url_for('home') }}" class="btn btn-primary px-4">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

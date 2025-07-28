@@ -1,0 +1,162 @@
+{%block style %}
+<style>
+    .navbar {
+        background-color: #0061F2 !important;
+        padding: 15px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand {
+        color: white !important;
+        font-size: 24px;
+        font-weight: 600;
+        padding-left: 15px;
+    }
+
+
+    .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 500;
+        padding: 8px 15px !important;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: white !important;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .form-select {
+        border-radius: 20px;
+        padding: 8px 15px;
+        padding-right: 35px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    .form-select option {
+        background-color: #0061F2;
+        color: white;
+    }
+
+    .form-control {
+        border-radius: 20px;
+        padding: 8px 15px;
+        border: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    .btn-outline-light {
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-logout {
+        color: #fff8f8;
+        border: none;
+        border-radius: 20px;
+        border: 1px solid #ffffff;
+        padding: 8px 16px;
+        margin: 0 20px;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .btn-logout:hover {
+        background-color: #FF4B4B;
+        color: white;
+        text-decoration: none;
+    }
+
+
+    .welcome-message {
+        position: absolute;
+        right: 20px;
+        color: white;
+        font-weight: 500;
+    }
+</style>
+
+{%endblock %}
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Quiz Master</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if 'user_id' in session %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+                </li>
+                {% if user and user.is_admin %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('quiz_management') }}">Quiz Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('summary') }}">Summary</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('user_data') }}">User Data</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('score') }}">Scores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('user_summary') }}">Summary</a>
+                </li>
+                {% endif %}
+                <form class="d-flex" method="GET" action="{{ url_for('search') }}">
+                    <select class="form-select me-2" name="source" style="width: auto;">
+                        {% if user.is_admin %}
+                        <option value="users" {% if source=='users' %}selected{% endif %}>Users</option>
+                        <option value="subjects" {% if source=='subjects' %}selected{% endif %}>Subjects</option>
+                        <option value="quiz" {% if source=='quiz' %}selected{% endif %}>Quizzes</option>
+                        {% else %}
+                        <option value="subjects" {% if source=='subjects' %}selected{% endif %}>Subjects</option>
+                        <option value="quiz" {% if source=='quiz' %}selected{% endif %}>Quizzes</option>
+                        <option value="scores" {% if source=='scores' %}selected{% endif %}>Scores</option>
+                        <option value="dates" {% if source=='dates' %}selected{% endif %}>Dates</option>
+                        {% endif %}
+                    </select>
+                    <input class="form-control me-2" type="search" placeholder="Search by name" name="q"
+                        value="{{ request.args.get('q', '') }}">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+                <a href="{{ url_for('logout') }}" class="btn btn-logout">Logout</a>
+                <h4 class="welcome-message">
+                    {% if user.is_admin %}
+                    Welcome Admin
+                    {% else %}
+                    Welcome {{ user.full_name }}
+                    {% endif %}
+                </h4>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

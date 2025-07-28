@@ -1,0 +1,117 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+    <style>
+        body {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+        }
+        
+        .card {
+            border: none;
+            background: transparent;
+        }
+
+        .card-header {
+            background: transparent;
+            border: none;
+            padding: 20px 0;
+        }
+        
+        .btn-primary {
+            background-color: #2563EB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #1A1A2E;
+            margin-bottom: 8px;
+            border: #000;
+            display: block;
+        }
+    
+        .form-control {
+            color: #1A1A2E !important;  
+            background-color: white !important;
+            border: 1px solid #ddd !important;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .form-control:focus {
+            border-color: #0061F2 !important;
+            box-shadow: 0 0 0 2px rgba(0, 97, 242, 0.2);
+            outline: none;
+        }
+        
+    </style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header mb-3 bg p-5 rounded">
+            <h2 class="text-center">Edit Question</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="question_name" class="form-label mt-4 fw-semibold">Question:</label>
+                    <input type="text" class="form-control" name="question_name" value="{{question.question_name}}" placeholder="Enter Question" required>
+                </div>
+             
+                <div class="form-group">
+                    <label for="option1" class="form-label mt-4 fw-semibold">Option 1:</label>
+                    <input type="text" class="form-control" name="option1" value="{{question.option1}}" placeholder="Enter Option 1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="option2" class="form-label mt-4 fw-semibold">Option 2:</label>
+                    <input type="text" class="form-control" name="option2" value="{{question.option2}}" placeholder="Enter Option 2" required>
+                </div>
+
+               
+                <div class="form-group">
+                    <label for="option3" class="form-label mt-4 fw-semibold">Option 3:</label>
+                    <input type="text" class="form-control" name="option3" value="{{question.option3}}" placeholder="Enter Option 3" required>
+                </div>
+
+               
+                <div class="form-group">
+                    <label for="option4" class="form-label mt-4 fw-semibold">Option 4:</label>
+                    <input type="text" class="form-control" name="option4" value="{{question.option4}}" placeholder="Enter Option 4" required>
+                </div>
+
+               
+                <div class="form-group">
+                    <label for="correct_option" class="form-label mt-4 fw-semibold">Correct Option:</label>
+                    <input type="text" class="form-control" name="correct_option" value="{{question.correct_option}}" placeholder="Enter Correct Option"
+                        required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">
+                    <i class="fa fa-plus"></i>
+                    Update Question</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

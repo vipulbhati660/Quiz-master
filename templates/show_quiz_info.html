@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+    <style>
+
+        body {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+        }
+        
+        .card {
+            border: none;
+            background: transparent;
+        }
+        
+        .text-center {
+            font-size: 2rem;
+            color: #1A1A2E;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background-color: #2563EB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        
+
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card custom-card">
+        <div class="card-header">
+            <h2 class="text-center">Quiz Information</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Quiz Name</th>
+                    <td>{{ quiz.name }}</td>
+                </tr>
+                <tr>
+                    <th>Subject</th>
+                    <td>{{ subject.name }}</td>
+                </tr>
+                <tr>
+                    <th>Chapter</th>
+                    <td>{{ chapter.name }}</td>
+                </tr>
+                <tr>
+                    <th>Number of Questions</th>
+                    <td>{{ quiz.no_of_question }}</td>
+                </tr>
+                <tr>
+                    <th>Marks per Question</th>
+                    <td>{{ quiz.marks }}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ quiz.date.strftime('%Y-%m-%d') }}</td>
+                </tr>
+                <tr>
+                    <th>Time Duration (minutes)</th>
+                    <td>{{ quiz.time }}</td>
+                </tr>
+                {% if quiz.remark %}
+                <tr>
+                    <th>Remarks</th>
+                    <td>{{ quiz.remark }}</td>
+                </tr>
+                {% endif %}
+            </table>
+            <div class="text-center mt-3">
+                <a href="{{ url_for('quiz_management') }}" class="btn btn-primary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

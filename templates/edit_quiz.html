@@ -1,0 +1,144 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+        }
+        
+        .card {
+            border: none;
+            background: transparent;
+        }
+        
+        .card-header {
+            background: transparent;
+            border: none;
+            padding: 20px 0;
+        }
+
+        .text-center {
+            font-size: 2rem;
+            color: #1A1A2E;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn-primary {
+            background-color: #2563EB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        
+        input[type="date"] {
+            padding: 10px;
+        }
+        
+        input[type="number"] {
+            padding: 10px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #1A1A2E;
+            margin-bottom: 8px;
+            border: #000;
+            display: block;
+        }
+    
+        .form-control {
+            color: #1A1A2E !important;  
+            background-color: white !important;
+            border: 1px solid #ddd !important;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .form-control:focus {
+            border-color: #0061F2 !important;
+            box-shadow: 0 0 0 2px rgba(0, 97, 242, 0.2);
+            outline: none;
+        }
+        
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header mb-3 bg p-5 rounded">
+            <h2 class="text-center">Edit Quiz</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="name" class="form-label mt-4 fw-semibold">Quiz Title:</label>
+                    <input type="text" class="form-control" name="quiz_title" placeholder="Enter Quiz name"
+                        value="{{quiz.name}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="no_of_question" class="form-label mt-4 fw-semibold">No_Of_Question:</label>
+                    <input type="number" class="form-control" name="no_of_question" placeholder="Enter Number of Question"
+                        value="{{quiz.no_of_question}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="marks" class="form-label mt-4 fw-semibold">Marks (per question):</label>
+                    <input type="number" class="form-control" name="marks" placeholder="Enter Marks per Question"
+                        value="{{quiz.marks}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="Date" class="form-label mt-4 fw-semibold">Date of Quiz:</label>
+                    <input type="date" class="form-control" name="date" placeholder="Enter Date of Quiz"
+                        value="{{quiz.date.strftime('%Y-%m-%d')}}" required>
+
+                </div>
+                <div class="form-group">
+                    <label for="time" class="form-label mt-4 fw-semibold">Time Duration (minutes):</label>
+                    <input type="number" class="form-control" name="time" min="1" max="60"
+                        placeholder="Enter Time in Minutes" value="{{quiz.time}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="remark" class="form-label mt-4 fw-semibold">Remark:</label>
+                    <textarea class="form-control" name="remark" rows="3"
+                        placeholder="Remarks">{{quiz.remark}}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">
+                    <i class="fa fa-plus"></i>
+                    Update Quiz</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

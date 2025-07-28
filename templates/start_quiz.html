@@ -1,0 +1,139 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+<style>
+    body {
+        background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .quiz-container {
+        padding: 30px;
+        background: linear-gradient(115deg, #fffbf6, #fff5f5);
+        min-height: 100vh;
+    }
+    
+    .quiz-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 20px;
+    }
+    
+    .progress-text {
+        background: #00bcd4;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+    }
+    
+    .timer {
+        background: #ff6666;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+    }
+    
+    .question-container {
+        background: #8e73f3;
+        color: rgb(255, 255, 255);
+        padding: 20px;
+        border-radius: 20px;
+        margin: 20px 0;
+    }
+    
+    .options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .option-row {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+    }
+    
+    .option-btn {
+        background: #888888;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        width: 45%;
+        cursor: pointer;
+        text-align: center;
+    }
+    
+    
+    .option-btn:hover {
+        background: #666666;
+    }
+    
+    input[type="radio"] {
+        display: none;
+    }
+    
+    input[type="radio"]:checked + .option-btn {
+        background: #4CAF50;
+    }
+    
+    .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        padding: 0 20px;
+    }
+    
+    .gradient-btn {
+        background: linear-gradient(45deg, #00bcd4, #1de9b6);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    
+    .gradient-btn:hover {
+        transform: translateY(-2px);
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid quiz-container">
+    <div class="quiz-header">
+        <div class="progress-text">{{ question_number }}/{{ total_questions }}</div>
+        <div class="timer">{{ quiz.time }}:00</div>
+    </div>
+    <div class="question-container">
+        <div class="question">{{ question.question_name }}</div>
+    </div>
+
+    <form method="POST" action="{{ url_for('save_answer', id=quiz.id) }}">
+        <div class="options-container">
+            <div class="option-row">
+                <input type="radio" name="answer" value="1" id="opt1" required>
+                <label class="option-btn" for="opt1">{{ question.option1 }}</label>
+                
+                <input type="radio" name="answer" value="2" id="opt2">
+                <label class="option-btn" for="opt2">{{ question.option2 }}</label>
+            </div>
+            <div class="option-row">
+                <input type="radio" name="answer" value="3" id="opt3">
+                <label class="option-btn" for="opt3">{{ question.option3 }}</label>
+                
+                <input type="radio" name="answer" value="4" id="opt4">
+                <label class="option-btn" for="opt4">{{ question.option4 }}</label>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button type="submit" name="action" value="save" class="gradient-btn">Save and Next</button>
+            <button type="submit" name="action" value="submit" class="gradient-btn">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}

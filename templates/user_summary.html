@@ -1,0 +1,124 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+<style>
+    body {
+        background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .container {
+        background-color: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin-top: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .card {
+        border: none;
+        background: transparent;
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        background: transparent;
+        border: none;
+        padding: 15px 0;
+    }
+
+    .card-header h3 {
+        color: #1A1A2E;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Subject-wise No. of Quizzes</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="subjectQuizChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Month-wise No. of Quizzes Attempted</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="monthAttemptsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Subject-wise Quiz Chart
+    new Chart(document.getElementById('subjectQuizChart'), {
+        type: 'bar',
+        data: {
+            labels: {{ subjects| tojson }},
+        datasets: [{
+            data: {{ quiz_counts| tojson }},
+        backgroundColor: [
+            'rgba(135, 206, 235, 0.7)',
+            'rgba(34, 139, 34, 0.7)',
+            'rgba(255, 182, 193, 0.7)'
+        ]
+        }]
+    },
+        options: {
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+    // Month-wise Attempts Pie Chart
+    new Chart(document.getElementById('monthAttemptsChart'), {
+        type: 'pie',
+        data: {
+            labels: {{ months| tojson }},
+        datasets: [{
+            data: {{ attempts| tojson }},
+        backgroundColor: [
+            'rgba(255, 182, 193, 0.7)',
+            'rgba(255, 182, 193, 0.5)',
+            'rgba(255, 182, 193, 0.3)'
+        ]
+        }]
+    },
+        options: {
+        plugins: {
+            legend: {
+                position: 'right'
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

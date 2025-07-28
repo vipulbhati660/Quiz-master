@@ -1,0 +1,128 @@
+{% extends 'layout.html' %}
+
+
+{% block style %}
+<style>
+
+    body {
+        background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .card {
+        background-color: white;
+        border-radius: 15px;
+        margin: 20px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .card-header {
+        background-color: #0061F2;
+        color: white;
+        padding: 15px;
+        border-radius: 15px 15px 0 0;
+        text-align: center;
+    }
+
+    .quiz {
+        font-size: 28px;
+        font-weight: 500;
+        color: #ff0000;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .table-responsive {
+        border-radius: 0 0 15px 15px;
+        overflow: hidden;
+    }
+
+    .table {
+        margin-bottom: 0;
+        background: #1A1A2E;
+        color: white;
+    }
+    
+    .table th {
+        background: #0A0A2E;
+        color: white;
+        padding: 15px;
+        border: none;
+        font-weight: 500;
+        text-align: center;
+    }
+    
+    .table td {
+        padding: 12px 15px;
+        border: 1px solid #2A2A4A;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    .btn {
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-weight: 500;
+        transition: transform 0.2s;
+    }
+    
+    .btn-warning {
+        background-color: #FFD700;
+        color: #1A1A2E;
+        border: none;
+    }
+    
+    .btn-success {
+        background-color: #FFD700;
+        color: #1A1A2E;
+        border: none;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-center">
+            <h1 class="text-warning mb-0">QUIZ</h1>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover mb-0">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>ID</th>
+                            <th>Quiz Name</th>
+                            <th>NO. OF QUESTION</th>
+                            <th>DATE</th>
+                            <th>DURATION(in minutes)</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for quiz in quizzes %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ quiz.name }}</td>
+                            <td>{{ quiz.no_of_question }}</td>
+                            <td>{{ quiz.date.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ quiz.time }}</td>
+                            <td>
+                                <a href="{{ url_for('view_quiz', id=quiz.id) }}" class="btn btn-warning">view</a>
+                                <a href="{{ url_for('start_quiz', id=quiz.id) }}" class="btn btn-success">start</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

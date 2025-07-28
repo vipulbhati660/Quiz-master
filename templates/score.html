@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+<style>
+    body {
+        background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    .card {
+        background-color: white;
+        border-radius: 15px;
+        margin: 20px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .card-header {
+        background-color: #0061F2;
+        color: white;
+        padding: 15px;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .text-center {
+        font-size: 24px;
+        font-weight: 500;
+        text-align: center;
+    }
+    
+    .table {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    
+    .table th {
+        background: #0A0A2E;
+        color: white;
+        padding: 15px;
+        border: none;
+    }
+
+    .table td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    .btn-primary {
+        background-color: #0061F2;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-weight: 500;
+        transition: transform 0.2s;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .mt-3 {
+        margin-top: 1rem;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">Quiz Scores</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Quiz Name</th>
+                            <th>No. of Questions</th>
+                            <th>Date</th>
+                            <th>Timestamp</th>
+                            <th>Score</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in scores %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ item.quiz.name }}</td>
+                            <td>{{ item.quiz.no_of_question }}</td>
+                            <td>{{ item.quiz.date.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ datetime.fromtimestamp(item.timestamp).strftime('%I:%M %p') }}</td>
+                            <td>{{ item.score }}/{{ item.total_marks }}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mt-3">
+                <a href="{{ url_for('home') }}" class="btn btn-primary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
